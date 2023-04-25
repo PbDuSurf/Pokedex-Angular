@@ -1,0 +1,26 @@
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { PokemonService } from '../services/pokemon.service';
+
+
+@Component({
+  selector: 'app-detalhes',
+  templateUrl: './detalhes.component.html',
+  styleUrls: ['./detalhes.component.scss']
+})
+export class DetalhesComponent {
+  public pokemon: any;
+
+  constructor(private pokemonService: PokemonService, private rotaAtiva: ActivatedRoute) { }
+
+  ngOnInit(): void {
+   const index:number =Number(this.rotaAtiva.snapshot.paramMap.get('id'));
+
+   this.pokemonService.getDetails(index).subscribe((pokemonRes)=>{
+    this.pokemon = pokemonRes;
+
+    console.log(pokemonRes);
+   });
+  }
+
+}
